@@ -27,6 +27,7 @@ export const ContactForm = () => {
     const handleSubmit = (e) => {
         if (!error.phone) {
             console.log(e)
+            alert("Add contact successfully!!!")
         }
         else  console.log(error)
     }
