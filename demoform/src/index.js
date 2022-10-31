@@ -8,5 +8,5 @@ import { SignupFormik } from './components/SignupFormik';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <SignupFormik />
+  <App />
 );
