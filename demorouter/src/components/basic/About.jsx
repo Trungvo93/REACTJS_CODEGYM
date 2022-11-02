@@ -5,7 +5,7 @@ export const About = () => {
     return (
         <div>
             <h1>Hello About</h1>
-            <Link to={`/about/${userID}`} key={userID}>UserID:{userID}</Link>
+            <Link to={`/about/${userID}`} >UserID:{userID}</Link>
         </div>
     );
 };
