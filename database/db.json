@@ -1,5 +1,29 @@
 {
-  "posts": [{ "id": 1, "title": "json-server", "author": "typicode" }],
-  "comments": [{ "id": 1, "body": "some comment", "postId": 1 }],
-  "profile": { "name": "typicode" }
+  "users": [
+    {
+      "id": 1,
+      "name": "Tommy"
+    },
+    {
+      "id": 2,
+      "name": "Jennie"
+    },
+    {
+      "id": 3,
+      "name": "Harry"
+    },
+    {
+      "id": 4,
+      "name": "Beck"
+    },
+    {
+      "id": 5,
+      "name": "Ben"
+    },
+    {
+      "name": "0109153004",
+      "birthday": "2022-11-02",
+      "id": 6
+    }
+  ]
 }
