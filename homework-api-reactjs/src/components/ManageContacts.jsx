@@ -15,6 +15,18 @@ const ManageContacts = () => {
   const handleCreate = () => {
     navigate(`/createcontact`);
   };
+  const handleEdit = (listID) => {
+    navigate(`/editcontact/`, { state: { id: listID } });
+  };
+  const handleDelete = (listID) => {
+    axios
+      .delete(`http://localhost:3000/contacts/${listID}`)
+      .then((res) => {
+        let newList = listContacts.filter((e) => e.id !== listID);
+        setListContacts(newList);
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <div className="container mt-5">
       <div className="d-flex justify-content-between">
@@ -46,8 +58,20 @@ const ManageContacts = () => {
               <td>{e.email}</td>
               <td>{e.phone}</td>
               <td>
-                <button className="btn btn-primary me-2">Edit</button>
-                <button className="btn btn-danger">Delete</button>
+                <button
+                  className="btn btn-primary me-2"
+                  onClick={() => {
+                    handleEdit(e.id);
+                  }}>
+                  Edit
+                </button>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => {
+                    handleDelete(e.id);
+                  }}>
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

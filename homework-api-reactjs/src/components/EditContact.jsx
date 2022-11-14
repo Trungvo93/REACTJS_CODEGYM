@@ -1,57 +1,64 @@
-import React from "react";
+import React, { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
-import { useState } from "react";
-import "./contact.css";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-const CreateContact = () => {
-  const [user, setUser] = useState({
-    img: "",
-    username: "",
-    email: "",
-    phone: "",
-  });
+import { useLocation, useNavigate } from "react-router-dom";
+const EditContact = () => {
+  const [user, setUser] = useState({});
+  const { state } = useLocation();
   const navigate = useNavigate();
+  useEffect(() => {
+    axios.get(`http://localhost:3000/contacts/${state.id}`).then((res) => {
+      setUser(res.data);
+      console.log(res.data);
+    });
+  }, []);
   const formSchema = yup.object().shape({
     username: yup.string().required(),
     email: yup.string().email().required(),
     phone: yup.number().required(),
   });
-  const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-  };
   const getUrlImage = (e) => {
     const fd = new FormData();
     fd.append("file", e.target.files[0]);
     axios
       .post(`https://v2.convertapi.com/upload`, fd)
       .then((res) => {
-        setUser({ ...user, img: res.data });
+        user.img = res.data;
+        setUser({ ...user });
       })
       .catch((err) => console.log(err));
   };
+  const handleChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
   const handleSubmit = (e) => {
     axios
-      .post(`http://localhost:3000/contacts`, user)
-      .then((res) => navigate(`/`))
+      .put(`http://localhost:3000/contacts/${state.id}`, user)
+      .then((res) => {
+        navigate(`/`);
+      })
       .catch((err) => console.log(err));
   };
   return (
     <div className="container my-5">
-      <h2 className="mb-5">Add Contact</h2>
+      <h2 className="mb-5">Edit Contact</h2>
       <Formik
         initialValues={user}
         enableReinitialize={true}
         validationSchema={formSchema}
         onSubmit={handleSubmit}>
         <Form>
-          <img
-            // src={imgData.Url}
-            src={user.img.Url}
-            alt=""
-            className="avatar rounded-circle me-4"
-          />
+          {user.img ? (
+            <img
+              src={user.img.Url}
+              alt=""
+              className="avatar rounded-circle me-4"
+            />
+          ) : (
+            <img src={""} alt="" className="avatar rounded-circle me-4" />
+          )}
           <Field
             type="file"
             name="img"
@@ -106,7 +113,7 @@ const CreateContact = () => {
               component="div"></ErrorMessage>
           </div>
           <button type="submit" className="btn btn-success mt-4 px-4">
-            Add
+            Edit
           </button>
         </Form>
       </Formik>
@@ -114,4 +121,4 @@ const CreateContact = () => {
   );
 };
 
-export default CreateContact;
+export default EditContact;
