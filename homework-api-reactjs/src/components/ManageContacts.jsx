@@ -40,7 +40,7 @@ const ManageContacts = () => {
           <tr>
             <th>Name</th>
             <th>Email</th>
-            <th>Email</th>
+            <th>Phone</th>
             <th>Actions</th>
           </tr>
         </thead>
