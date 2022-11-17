@@ -9,7 +9,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const [user, setUser] = useState({ username: "", password: "" });
 
-  const userLogined = useSelector((state) => state.initLoginUser);
+  const userLogined = useSelector((state) => state.initLoginUser.userlogined);
   console.log(userLogined);
   const setValueForUser = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
