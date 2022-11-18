@@ -1,30 +1,26 @@
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-import React, { useState } from "react";
-import { useEffect } from "react";
-
+import { fakeLogin } from "../../redux/actionThunk";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [user, setUser] = useState({ username: "", password: "" });
-
-  const userLogined = useSelector((state) => state.initLoginUser.userlogined);
+  const userlogined = useSelector((state) => state.userlogined);
   const setValueForUser = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
   const login = () => {
-    dispatch({ type: "LOGIN", payload: user });
-    console.log(userLogined);
+    dispatch(fakeLogin(user));
   };
   useEffect(() => {
-    if (userLogined.username) {
+    if (userlogined.username) {
       navigate("/users");
     }
-  }, [userLogined, navigate]);
+  }, [userlogined, navigate]);
   return (
-    <div className="container mt-5">
-      <h1 className="text-center">Login</h1>
+    <div>
+      {" "}
       <form>
         <label>User name</label>
         <input
