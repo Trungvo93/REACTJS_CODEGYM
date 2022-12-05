@@ -6,7 +6,7 @@ const Home = () => {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     if (e.target.name === "user") {
-      setCookie("user", e.target.value, { path: "/" });
+      setCookie("user", e.target.value, { path: "/", maxAge: 3600 });
     }
     if (e.target.name === "password") {
       setCookie("password", e.target.value, { path: "/" });
