@@ -9,4 +9,4 @@ import { Index2 } from "./components/router2/Index2";
 import { Index3 } from "./components/router3/Index3";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<Index3 />);
+root.render(<Index />);
